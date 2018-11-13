@@ -54,7 +54,7 @@
         <!--对话框的内容，表单-->
         <v-card-text class="px-5">
           <!--我是表单-->
-          <MyBrandForm :oldBrand="brand" :isEdit="isEdit" @close="show = false" :reload="getDataFromApi"/>
+          <MyBrandForm :oldBrand="MyBrand" :isEdit="isEdit" @close="show = false" :reload="getDataFromServer"/>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -85,7 +85,8 @@
         loading: false,// 是否在加载中
         search: '',// 搜索过滤字段
         show: false,//控制对话框的显示
-
+        isEdit: false, // 判断是编辑还是新增
+        MyBrand: {}, // 品牌信息
       }
     },
     mounted() { // 渲染后执行
