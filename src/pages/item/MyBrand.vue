@@ -2,32 +2,40 @@
   <div>
 
     <v-card>
-      <v-card-title>
+      <!--<v-card-title>-->
+      <v-card-title class="layout row">
         <v-btn color="primary" @click="addBrand">新增品牌</v-btn>
         <!--空间隔离组件-->
         <v-spacer />
         <!--搜索框，与search属性关联-->
-        <v-text-field  label="输入关键字搜索" v-model="search" append-icon="search"
-                       hide-details/>
+        <!--<v-text-field  label="输入关键字搜索" v-model="search" append-icon="search"
+                       hide-details/>-->
+        <v-text-field
+          label="请输入搜索条件"
+          append-icon="search"
+          class="flex sm3"
+          hide-details
+          v-model="search"
+        />
       </v-card-title>
 
+      <v-divider/>
       <v-data-table
         :headers="headers"
         :items="brands"
-        :search="search"
         :pagination.sync="pagination"
         :total-items="totalBrands"
         :loading="loading"
         class="elevation-1"
-      >
+      ><!--:search="search"-->
         <template slot="items" slot-scope="props">
           <td class="text-xs-center">{{ props.item.id }}</td>
           <td class="text-xs-center">{{ props.item.name }}</td>
           <td class="text-xs-center"><img :src="props.item.image"></td>
           <td class="text-xs-center">{{ props.item.letter }}</td>
           <td class="justify-center layout">
-            <v-btn color="info" @click="editBrand(props.item)">编辑</v-btn>
-            <v-btn color="warning" icon @click="deleteBrand(props.item)">删除</v-btn>
+            <v-btn color="info" @click="editBrand(props.item)" small fab>编辑</v-btn>
+            <v-btn color="warning"  @click="deleteBrand(props.item)" small fab>删除</v-btn>
           </td>
         </template>
       </v-data-table>
@@ -47,14 +55,7 @@
             </v-btn>
           </v-toolbar>
 
-         <!-- <v-toolbar dense dark color="primary">
-            <v-toolbar-title>新增品牌</v-toolbar-title>
-            &lt;!&ndash;关闭窗口的按钮&ndash;&gt;
-            &lt;!&ndash;将关闭按钮置于最右边&ndash;&gt;
-            <v-spacer/>
-            <v-btn icon @click="closeWindow" ><v-icon>close</v-icon></v-btn>
-                  </v-toolbar>-->
-          <!--对话框的内容，表单-->
+
           <v-card-text class="px-5">
             <my-brand-form @close="closeWindow" :oldBrand="oldBrand" :isEdit="isEdit"/>
           </v-card-text>
@@ -118,11 +119,11 @@
     methods:{
 
 
-     //删除品牌
+      //删除品牌
       deleteBrand(item) {
         this.$message.confirm('此操作将永久删除该品牌, 是否继续?').then(() => {
           // 发起删除请求
-          this.$http.delete("/item/brand?id=" + item.id,)
+          this.$http.delete("/item/brand/" + item.id)
             .then(() => {
               // 删除成功，重新加载数据
               this.$message.success("删除成功！");
@@ -149,7 +150,7 @@
             this.oldBrand.categories = data;
           })
       },
-       //增加品牌
+      //增加品牌
       addBrand(){
         //修改标记
         this.isEdit = false;

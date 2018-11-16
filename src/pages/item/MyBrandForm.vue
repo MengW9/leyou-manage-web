@@ -1,10 +1,19 @@
 <template>
   <v-form v-model="valid" ref="myBrandForm">
-    <v-text-field v-model="brand.name" label="请输入品牌名称" required
-                  :rules="[v => !!v || '品牌名称不能为空']"
-                  :counter="10"/>
-    <v-text-field v-model="brand.letter" label="请输入品牌首字母"
-                  :rules="[v => v.length === 1 || '首字母只能是1位']" required mask="A"/>
+    <v-text-field
+      label="品牌名称"
+      v-model="brand.name"
+      :rules="[v => !!v || '品牌名称不能为空']"
+      :counter="10"
+      required
+    />
+    <v-text-field
+      label="首字母"
+      v-model="brand.letter"
+      :rules="[v => v.length === 1 || '首字母只能是1位']"
+      required
+      mask="A"
+    />
 
     <v-cascader
       url="/item/category/list"

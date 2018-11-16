@@ -1,5 +1,6 @@
 <template>
   <v-card>
+    <!--商品分类-->
     <v-flex xs12 sm10>
       <v-card-title>选择分类，查看规格参数模板：</v-card-title>
       <v-tree url="/item/category/list"
@@ -51,7 +52,7 @@
                             </v-layout>
                             <v-layout row>
                               <v-checkbox color="success" v-model="param.numerical" label="是否数值类型"/>
-                              <v-text-field v-show="param.numerical" label="计量单位" v-model="param.unit" />
+                              <v-text-field v-show="param.numerical" label="计量单位" v-model="param.unit"/>
                             </v-layout>
                             <v-card-text v-if="param.options.length > 0">
                               <v-layout row v-for="j in param.options.length" :key="j">
@@ -107,7 +108,7 @@
 
 <script>
   import config from '../../config'
-//  import {treeData,phoneSpec} from "../../mockDB";
+  //  import {treeData,phoneSpec} from "../../mockDB";
 
   export default {
     name: "v-template",
@@ -118,7 +119,7 @@
         dialog: false, // 是否弹出对话框，默认是false，隐藏对话框
         currentNode: {},// 当前被选中的商品分类节点
         isInsert: false,// 新增或者修改
-        units:config.unitOption// 数值类型的可选单位
+        units: config.unitOption// 数值类型的可选单位
         // treeData:treeData // 假的商品分类数据
       }
     },
@@ -170,8 +171,8 @@
           k: "",
           searchable: false,
           global: true,
-          numerical:false,
-          unit:"",
+          numerical: false,
+          unit: "",
           options: []
         })
       },
